@@ -1,120 +1,119 @@
-const dungeonData = [
+export const dungeonData = [
   {
     name: "Room 1",
-    choiceArray: [],
+    // choiceArray: [],
     enemies: 1,
     loot: 1,
-    text: "",
+    text: "this is room 1",
+    id: "01D"
   },
   {
     name: "Room 2",
-    choiceArray: [],
+    // choiceArray: [],
     enemies: 2,
     loot: 2,
-    text: "",
+    text: "this is room 2",
+    id: "02D"
   },
   {
     name: "Room 3",
-    choiceArray: [],
+    // choiceArray: [],
     enemies: 3,
     loot: 3,
-    text: "",
+    text: "this is room 3",
+    id: "03D"
   }
 ]
 
-const choiceData = [
+export const choiceData = [
   {
     text: "",
     buttonText: "",
     resultText: "",
-    resultAction: {} // do something
+    resultAction: {}, // do something
+    id: "01C"
   },
   {
     text: "",
     buttonText: "",
     resultText: "",
-    resultAction: {} // do something
+    resultAction: {},
+    id: "02C" // do something
   },
   {
     text: "",
     buttonText: "",
     resultText: "",
-    resultAction: {} // do something
+    resultAction: {}, // do something
+    id: "03C"
   },
   {
     text: "",
     buttonText: "",
     resultText: "",
-    resultAction: {} // do something
+    resultAction: {}, // do something
+    id: "04C"
   },
   {
     text: "",
     buttonText: "",
     resultText: "",
-    resultAction: {} // do something
+    resultAction: {}, // do something
+    id: "05C"
   },
   {
     text: "",
     buttonText: "",
     resultText: "",
-    resultAction: {} // do something
+    resultAction: {}, // do something
+    id: "06C"
   },
 ]
 
-const enemiesData = [
+export const enemiesData = [
   {
     type: "",
     health: 0,
     strength: 0,
-    defense: 0
+    defense: 0,
+    id: "01E"
   },
   {
     type: "",
     health: 0,
     strength: 0,
-    defense: 0
+    defense: 0,
+    id: "02E"
   },
   {
     type: "",
     health: 0,
     strength: 0,
-    defense: 0
+    defense: 0,
+    id: "03E"
   },
 ]
 
-const lootData = [
+export const lootData = [
   {
     obtainText: "",
     itemDescription: "",
     type: "",
-    health: 0
+    health: 0,
+    id: "01L"
   },
   {
     obtainText: "",
     itemDescription: "",
     type: "",
-    strength: 0
+    strength: 0,
+    id: "02L"
   },
   {
     obtainText: "",
     itemDescription: "",
     type: "",
-    money: 0
+    money: 0,
+    id: "03L"
   },
 ]
-
-// {
-//   name: "Enchantments Trail",
-//   region: "Enchantments",
-//   description: "23.6 mile trail through Enchantments near Leavenworth, WA.",
-//   reviews: {
-//     1: {
-//       content: "Amazing!"
-//     },
-//     2: {
-//       content: "Very challenging hike."
-//     },
-//   }
-// }
-
-

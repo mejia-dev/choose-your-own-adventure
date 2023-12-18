@@ -1,6 +1,6 @@
 import React from "react";
-import { dungeonData, choiceData, enemiesData, lootData } from "./RawDungeonData";
-import db from "../firebase.js";
+import { dungeonData, choiceData, lootData } from "./RawDungeonData";
+import { db } from "../firebase.js";
 import { collection, addDoc, setDoc, onSnapshot, doc, updateDoc } from "firebase/firestore";
 
 export default function FireStoreControl() {
@@ -14,11 +14,6 @@ export default function FireStoreControl() {
 
     choiceData.forEach(async(object) => {
         await setDoc(doc(db, "choices", object.id), object);
-      
-    })
-
-    enemiesData.forEach(async(object) => {
-        await setDoc(doc(db, "enemies", object.id), object);
       
     })
 

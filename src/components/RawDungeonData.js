@@ -5,7 +5,7 @@ export const dungeonData = [
     enemies: 1,
     loot: 1,
     descriptionText: "A ship with a crew that tends to attract barnacles both on the ship's hull and as quirky sidekicks.",
-    storyText: "",
+    storyText: "Arrr, the cursed barnacles be defyin' the captain's orders and threatenin' to send the ship to Davy Jones's locker! The vessel be splinterin' and creakin' like a skeleton in a storm. What be yer course of action in this dire moment, me heartie?",
     id: "01D"
   },
   {
@@ -23,24 +23,24 @@ export const dungeonData = [
     enemies: 3,
     loot: 3,
     descriptionText: "A brightly colored ship with a crew that enjoys dancing like jellyfish when celebrating their victories.",
-    storyText: "",
+    storyText: "Ye step aboard a fresh vessel only to discover the entire crew be tangled in the mesmerizin' clutches of a siren's melody, makin' 'em jig and reel in a wild dance they can't resist. The ship's deck be a sea of uncontrollable merriment, a bewitched ball where the pirates be marionettes to the enchantin' tune of the sirens. The call of the sea sirens be both a curse and a spectacle, turnin' the ship into a rollickin' revelry on the unpredictable waves.",
     id: "03D"
   }
 ]
 
 export const choiceData = [
   {
-    text: "",
-    buttonText: "",
-    resultText: "",
-     // do something
+    text: "Barnacle-Led Voyage",
+    buttonText: "Take the plunge!",
+    resultText: "By the ghostly glow of the moon and the mysterious murmurings of the sea, ye decide to take a leap of piratey faith and allow the barnacles to chart the course. The rebellious crustaceans, like a watery compass gone rogue, guide the ship through uncharted waters and mystical currents. As the crew watches in awe, the barnacles seem to form patterns on the hull, as if speakin' the ancient language of the ocean. The ship follows their lead, sailin' a path unknown to even the most seasoned mariners. It's a mesmerizin' dance between ship and barnacle, as if Neptune himself had granted the barnacles dominion over the waves.",
+     // obtain black pearl
     id: "01C"
   },
   {
-    text: "",
-    buttonText: "",
-    resultText: "",
-     // do something
+    text: "Barnacle Booty Bargain",
+    buttonText: "Barrrrrgain!",
+    resultText: "The Bumbling Barnacle's crew, ever the resourceful bunch, has developed a quirky system to share their plunder with the mischievous barnacles in order to foster cooperation.",
+     // obtain Barnacle Badge
     id: "02C" 
   },
   {
@@ -58,68 +58,89 @@ export const choiceData = [
     id: "04C"
   },
   {
-    text: "",
-    buttonText: "",
-    resultText: "",
-     // do something
+    name: "Parrot's Siren Serenade",
+    buttonText: "Deploy parrot!",
+    resultText: "Ensnared in the bewitchin' melody of the sea sirens, ye, the intrepid sailor, ye deploy a savvy parrot to warble the sirens' own song right back at 'em, throwin' a curveball into their enchantin' symphony and leavin' the beguilin' sirens befuddled and ensnared in their own musical mayhem. The seas themselves be witnessin' the whimsical spectacle of a pirate's feathery companion outwittin' the alluring sirens with a melody as mischievous as a cat on a hot tin deck.",
+     // obtain siren scale
     id: "05C"
   },
   {
-    text: "",
-    buttonText: "",
-    resultText: "",
-     // do something
+    name: "Swindle Me Timbers",
+    buttonText: "Plunder!",
+    resultText: "Ye don the Swashbucklin' Earmuffs, drownin' out the irresistible sirens' shanty, leavin' the merry crew lost in their own dancin' delirium. Seizin' the opportune moment, ye embark on a plunderin' spree, liberatin' the loot while the ensnared pirates two-step and hornpipe, oblivious to their ill-fated fate. Aye, a stealthy heist amidst the sea's musical chaos!",
+     // obtain doubloons
     id: "06C"
   },
 ]
 
-export const enemiesData = [
-  {
-    type: "Rum-soaked Skeleton",
-    description: "Skeletons who have spent a bit too much time at the bottom of the sea. Instead of being menacing, they might be more concerned about finding their missing bones.",
-    health: 0,
-    strength: 0,
-    defense: 0,
-    id: "01E"
-  },
-  {
-    type: "Soggy Sea Siren",
-    description: "Mermaids who sing terribly off-key, causing confusion and disarray among the crew. They may also attack with soggy seaweed lassos.",
-    health: 0,
-    strength: 0,
-    defense: 0,
-    id: "02E"
-  },
-  {
-    type: "Octopirate",
-    description: "Pirates with octopus tentacles for legs, making them adept at slipping and sliding across the ship's deck. They might attack by squirting ink or giving unsuspecting hugs with their tentacles.",
-    health: 0,
-    strength: 0,
-    defense: 0,
-    id: "03E"
-  },
-]
+// export const enemiesData = [
+//   {
+//     type: "Rum-soaked Skeleton",
+//     description: "Skeletons who have spent a bit too much time at the bottom of the sea. Instead of being menacing, they might be more concerned about finding their missing bones.",
+//     health: 0,
+//     strength: 0,
+//     defense: 0,
+//     id: "01E"
+//   },
+//   {
+//     type: "Soggy Sea Siren",
+//     description: "Mermaids who sing terribly off-key, causing confusion and disarray among the crew. They may also attack with soggy seaweed lassos.",
+//     health: 0,
+//     strength: 0,
+//     defense: 0,
+//     id: "02E"
+//   },
+//   {
+//     type: "Octopirate",
+//     description: "Pirates with octopus tentacles for legs, making them adept at slipping and sliding across the ship's deck. They might attack by squirting ink or giving unsuspecting hugs with their tentacles.",
+//     health: 0,
+//     strength: 0,
+//     defense: 0,
+//     id: "03E"
+//   },
+// ]
 
 export const lootData = [
   {
     obtainText: "Yum! You have found some Rum!",
     itemDescription: "Sip this seafarer's delight and let the echoes of distant waves whisk you away to the heart of the open ocean.",
     type: "Rum",
-    health: 10,
     id: "01L"
   },
-  {
-    obtainText: "You found an orange!",
-    itemDescription: "Picture this: ye spy an unsuspecting foe on the deck, and with the precision of a skilled marksman, ye whip out the orange. It's like holdin' a hand grenade, but instead of a blast, ye unleash a volley of juicy chaos! A direct hit can blind a scurvy-ridden scallywag or leave 'em sticky as a bilge rat caught in the grog barrel.",
-    type: "Orange",
-    strength: 0,
-    id: "02L"
-  },
+  // {
+  //   obtainText: "You found an orange!",
+  //   itemDescription: "Picture this: ye spy an unsuspecting foe on the deck, and with the precision of a skilled marksman, ye whip out the orange. It's like holdin' a hand grenade, but instead of a blast, ye unleash a volley of juicy chaos! A direct hit can blind a scurvy-ridden scallywag or leave 'em sticky as a bilge rat caught in the grog barrel.",
+  //   type: "Orange",
+  //   id: "02L"
+  // },
   {
     obtainText: "Lucky you- you found doubloons!",
-    itemDescription: "Picture this: big, chunky coins with kings and queens squintin' at each other on either side like they just heard the juiciest gossip. Pirates would be plunderin' ships left and right, lookin' for chests filled with these golden disco discs. 'Twas like the pirates had their own version of pirate bling – doubloons that said, 'I'm a swashbucklin' superstar on the high seas!'",
+    itemDescription: "Picture this: big, chunky coins with kings and queens squintin' at each other on either side like they just heard the juiciest gossip. Pirates would be plunderin' ships left and right, lookin' for chests filled with these golden disco discs. 'Twas like the pirates had their own version of pirate bling - doubloons that said, 'I'm a swashbucklin' superstar on the high seas!'",
     type: "Doubloons",
-    money: 5,
     id: "03L"
   },
+  {
+    obtainText: "Ahoy! You've got the Captain's Hat!",
+    itemDescription: "Adorned with weathered leather, bore the weight of countless sea breezes, its brim casting a shadow over a face etched with tales of maritime mastery.",
+    type: "Captain's Hat",
+    id: "04L"
+  },
+  {
+    obtainText: "Behold, you've obtained the Black Pearl!",
+    itemDescription: "In the heart of the treacherous brine, legends tell of a mystical treasure known as the Black Pearl—a shimmering orb, as dark as the midnight sea, said to harbor untold riches and a curse as old as Davy Jones himself. Many a brave explorer has sought to possess its mysterious bounty, yet none have returned to boast of their triumph over the enigmatic depths that guard the fabled Black Pearl.",
+    type: "Black Pearl",
+    id: "05L"
+  },
+  {
+    obtainText: "Yer an honorary Barnacle now! You earned the Barnacle Badge!",
+    itemDescription: "In the secret society of barnacles beneath the briny waves, there exists a coveted accolade known as the 'Honorary Barnacle Badge.' Bestowed upon sailors who've shown exceptional skill in befriending their crustaceous brethren, this badge is rumored to grant its recipients honorary citizenship in the barnacle community, complete with the perks of oceanic gossip and exclusive access to the finest barnacle banquets.",
+    type: "Barnacle Badge",
+    id: "05L"
+  },
+  {
+    obtainText: "You snatched an incredibly rare Siren Scale! ...Slimy.",
+    itemDescription: " Crafted from the shimmering iridescence of mermaid scales and imbued with the haunting melodies of the deep sea, this irreplaceable artifact glows with an alluring luminescence that dances across its surface.",
+    type: "Siren's Scale",
+    id: "05L"
+  }
 ]

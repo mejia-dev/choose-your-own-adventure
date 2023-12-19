@@ -4,4 +4,4 @@ const playerData = {
     inventory: []
 }
 
-export default playerData
+export default playerData;

@@ -5,12 +5,19 @@ export default function IntroShipRendering(props) {
   return (
     <React.Fragment>
       {props.fullDungeonList.map((dungeon) => 
-        <h3 key={dungeon.id}>{dungeon.name}</h3>
+        <React.Fragment key={dungeon.id}>
+        <div >
+          <h3 >{dungeon.name}</h3>
+          <p>{dungeon.descriptionText}</p>
+          <button onClick={() => props.selectionFunction(dungeon.id)}>Select {dungeon.name}</button>
+        </div>
+        </React.Fragment>
       )}
     </React.Fragment>
   )
 }
 
 IntroShipRendering.propTypes = {
-  fullDungeonList: PropTypes.array
+  fullDungeonList: PropTypes.array,
+  selectionFunction: PropTypes.func
 }

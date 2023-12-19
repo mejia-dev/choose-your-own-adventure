@@ -1,5 +1,7 @@
 const playerData = {
     name: "",
     location: "",
-    inventory: [],
+    inventory: []
 }
+
+export default playerData

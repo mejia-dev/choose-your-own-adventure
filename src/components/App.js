@@ -16,6 +16,7 @@ function App() {
     signOut(auth)
       .then(function () {
         setSignOutSuccess('You have successfully signed out!');
+        setPageView(0)
       }).catch(function (error) {
         setSignOutSuccess(`There was an error signing out: ${error.message}!`);
       });
@@ -29,8 +30,8 @@ function App() {
         <div>
           <Link to="/">Home</Link><br />
           <Link to="/sign-in">Sign In</Link>
-          <button onClick={doSignOut}>Sign out</button>
-          {signOutSuccess}
+          {/* <button onClick={doSignOut}>Sign out</button>
+          {signOutSuccess} */}
         </div>
 
         <Routes>
@@ -47,6 +48,8 @@ function App() {
 
   return (
     <React.Fragment>
+      <button onClick={doSignOut}>Sign out</button>
+          {signOutSuccess}
       {currentView}
     </React.Fragment>
   )

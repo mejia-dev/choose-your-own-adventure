@@ -6,6 +6,7 @@ import playerData from './PlayerData'
 import { collection, getDocs, where, query } from "firebase/firestore";
 import TestRendering from "./IntroShipRendering.js";
 import IntroShipRendering from "./IntroShipRendering.js";
+import { Link } from "react-router-dom"
 
 export default function UIHolder() {
 
@@ -62,27 +63,8 @@ export default function UIHolder() {
      The horizon stretches wide, adorned with a fleet of ships—each a chapter in yer tale. The 'Bumbling Barnacle' beckons with its peculiar companionship, the 'Groggy Galleon' hints at rowdy revelry, while the 'Jolly Jellyfish' calls to ye with its enchantin' festivities. Yer path weaves through these storied vessels, and every decision ye make charts a course to wealth, companionship, or daring escapades across the high seas.
 
         Amidst whispers carried by the winds, tales of grandeur and fortune beckon. Here, each choice molds the voyage. Now, which ship shall be your first port of call?</p>
-         <div>
-           <h3>Bumbling Barnacle</h3>
-           <p>
-            {dungeonList[0].descriptionText}
-           </p>
-           <button onClick={() => { playerData.location = dungeonList[0].id }}>Bumbling Barnacle</button>
-        </div>
-        <div>
-          <h3>Groggy Galleon</h3>
-          <p>
-            {dungeonList[1].descriptionText}
-            </p>
-          <button onClick={() => { playerData.location = dungeonList[1].id }}>Groggy Galleon</button>
-        </div>
-        <div>
-          <h3>Jolly Jellyfish</h3>
-          <p>
-            {dungeonList[2].descriptionText}
-            </p>
           <button onClick={() => { playerData.location = dungeonList[2].id }}>Jolly Jellyfish</button> 
-         </div> */}
+          */}
        </React.Fragment>
      )
   } else  {
@@ -121,23 +103,17 @@ export default function UIHolder() {
   // }
   // }
 
-
-  // return (
-  //   {currentLevelRendered}
-  // )
-
-
   if (auth.currentUser == null) {
     return (
       <React.Fragment>
         <h1>Please Sign In</h1>
+        <Link to="/sign-in">Sign In</Link>
         
       </React.Fragment>
     )
   } else if (auth.currentUser != null) {
     return (
       <React.Fragment>
-        <h1>Signed in!</h1>
         {currentLevelRendered}
       </React.Fragment>
     )

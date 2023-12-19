@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import SignIn from "./SignIn";
 import { db, auth } from "../firebase.js";
 import PlayerInput from './PlayerInput';
 import playerData from './PlayerData'
-import { collection, getDocs, where, query } from "firebase/firestore";
-import TestRendering from "./IntroShipRendering.js";
+import { collection, getDocs, query } from "firebase/firestore";
 import IntroShipRendering from "./IntroShipRendering.js";
 import { Link } from "react-router-dom"
 
@@ -12,9 +10,10 @@ export default function UIHolder() {
 
   let currentLevelRendered;
 
-  const [dungeonList, setDungeonList] = useState([])
-  const [choicesList, setChoicesList] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [dungeonList, setDungeonList] = useState([]);
+  const [choicesList, setChoicesList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [gameReady, setGameReady] = useState(false);
 
   useEffect(() => {
     async function getDungeonData() {
@@ -49,11 +48,24 @@ export default function UIHolder() {
     playerData.location = dungeonID;
   }
 
-  if (playerData.location == "" && !loading && auth.currentUser != null) {
+  function changeName(playerName) {
+    playerData.name = playerName;
+    console.log(playerData.name)
+    setGameReady(true)
+  }
+
+
+  if (playerData.name == "") {
+    currentLevelRendered = (<>
+      <PlayerInput
+        commitName={changeName}/>
+    </>
+    )
+  } else if (playerData.location == "" && !loading && auth.currentUser != null && playerData.name != null) {
     currentLevelRendered = (
       <React.Fragment>
         <h2>Ready yer sails for a plunder of secrets, mateys!</h2>
-        <p>As you stand upon the weathered deck of your trusted vessel, the salty breeze tousles your hair, carryin' whispers of distant shores and treasures yet unfound. Ye're not just any sailor; ye're Captain {playerData.name}, a bold soul navigatin' the boundless open sea.
+        <p>As you stand upon the weathered deck of your trusted vessel, the salty breeze tousles your hair, carryin' whispers of distant shores and treasures yet unfound. Ye're not just any sailor; ye're <b>Captain {playerData.name}</b>, a bold soul navigatin' the boundless open sea.
         <br /><br />
         The horizon stretches wide, adorned with a fleet of ships—each a chapter in yer tale. The <b>'Bumbling Barnacle'</b> beckons with its peculiar companionship, the <b>'Groggy Galleon'</b> hints at rowdy revelry, while the <b>'Jolly Jellyfish'</b> calls to ye with its enchantin' festivities. Yer path weaves through these storied vessels, and every decision ye make charts a course to wealth, companionship, or daring escapades across the high seas.
         <br /><br />

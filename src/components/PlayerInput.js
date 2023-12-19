@@ -1,6 +1,7 @@
 import playerData from './PlayerData'
+import PropTypes from 'prop-types'
 
-const PlayerInput = () => {
+const PlayerInput = (props) => {
 
     const handleInput = (e) => {
         playerData.name = e.target.value
@@ -9,6 +10,8 @@ const PlayerInput = () => {
 
     const preventRefresh = (e) => {
         e.preventDefault();
+        console.log(playerData.name)
+        props.commitName(playerData.name);
     }
 
     return (
@@ -24,5 +27,9 @@ const PlayerInput = () => {
         </form>
     )
 };
+
+PlayerInput.propTypes = {
+    commitName: PropTypes.func
+}
 
 export default PlayerInput;

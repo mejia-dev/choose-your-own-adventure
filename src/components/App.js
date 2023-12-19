@@ -37,6 +37,7 @@ function App() {
         <Routes>
           <Route path='/sign-in' element={<SignIn
             changePage={setPageView}
+            signOutMessage={setSignOutSuccess}
           />} />
           <Route path='/' element={<UIHolder />} />
         </Routes>

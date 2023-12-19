@@ -28,6 +28,7 @@ function SignIn(props) {
         const password = event.target.signinPassword.value;
         signInWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
+            props.signOutMessage(null)
             setSignInSuccess(`You've successfully signed in as ${userCredential.user.email}!`);
             props.changePage(1);
           })

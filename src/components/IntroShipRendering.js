@@ -5,7 +5,7 @@ export default function IntroShipRendering(props) {
   return (
     <React.Fragment>
       {props.fullDungeonList.map((dungeon) => 
-        <h3>{dungeon.name}</h3>
+        <h3 key={dungeon.id}>{dungeon.name}</h3>
       )}
     </React.Fragment>
   )

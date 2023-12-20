@@ -5,12 +5,10 @@ const PlayerInput = (props) => {
 
     const handleInput = (e) => {
         playerData.name = e.target.value
-        console.log(playerData.name)
     }
 
     const preventRefresh = (e) => {
         e.preventDefault();
-        console.log(playerData.name)
         props.commitName(playerData.name);
     }
 

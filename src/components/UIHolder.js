@@ -3,6 +3,7 @@ import { db, auth } from "../firebase.js";
 import PlayerInput from './PlayerInput';
 import playerData from './PlayerData'
 import Ship from "./Ship.js";
+import Inventory from "./Inventory.js";
 import { collection, getDocs, query } from "firebase/firestore";
 import IntroShipRendering from "./IntroShipRendering.js";
 import { Link } from "react-router-dom";
@@ -128,7 +129,7 @@ export default function UIHolder() {
     return (
       <React.Fragment>
         {currentLevelRendered}
-        {/* {playerData.inventory} */}
+        <Inventory />
       </React.Fragment>
     )
   }

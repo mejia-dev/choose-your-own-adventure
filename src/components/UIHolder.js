@@ -76,9 +76,9 @@ export default function UIHolder() {
         />
       </React.Fragment>
     )
-  } else if (playerData.location == "01D") {
+  } else if (playerData.location != "") {
     
-    const selectedDungeon = dungeonList.find((dungeon) => dungeon.id === "01D");
+    const selectedDungeon = dungeonList.find((dungeon) => dungeon.id === playerData.location);
     let choiceOptions = []; 
     choicesList.forEach((choice) => {
       if (selectedDungeon.choiceArray.includes(choice.id)) {

@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { auth } from './../firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import PropTypes from "prop-types";
+import { LoadPlayerData, SavePlayerData } from './LoadSave';
+import playerData from './PlayerData';
 
 function SignIn(props) {
 
@@ -15,7 +17,14 @@ function SignIn(props) {
         const password = event.target.password.value;
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                setSignUpSuccess(`You've successfully signed up, ${userCredential.user.email}!`)
+                setSignUpSuccess(`You've successfully signed up, ${userCredential.user.email}!`);
+                playerData = {
+                  name: "",
+                  location: "",
+                  inventory: [],
+                  shipsVisited: []
+                };
+                SavePlayerData();
             })
             .catch((error) => {
                 setSignUpSuccess(`There was an error signing up: ${error.message}`)
@@ -30,6 +39,7 @@ function SignIn(props) {
           .then((userCredential) => {
             props.signOutMessage(null)
             setSignInSuccess(`You've successfully signed in as ${userCredential.user.email}!`);
+            LoadPlayerData();
             props.changePage(1);
           })
           .catch((error) => {

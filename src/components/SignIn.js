@@ -18,12 +18,10 @@ function SignIn(props) {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 setSignUpSuccess(`You've successfully signed up, ${userCredential.user.email}!`);
-                playerData = {
-                  name: "",
-                  location: "",
-                  inventory: [],
-                  shipsVisited: []
-                };
+                playerData.name = "";
+                playerData.location = "";
+                playerData.inventory = [];
+                playerData.shipsVisited = [];
                 SavePlayerData();
             })
             .catch((error) => {

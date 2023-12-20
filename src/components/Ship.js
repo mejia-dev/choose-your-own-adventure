@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { query, collection, where, getDocs } from 'firebase/firestore';
 import { db } from './../firebase.js';
 import playerData from "./PlayerData.js";
+import './Ship.css'
 
 export default function Ship(props) {
   const [resultText, setResultText] = useState(null);
@@ -56,9 +57,11 @@ export default function Ship(props) {
 
   return (
     <>
-      <h2>You've <em>arr</em>ived aboard the {props.selectedShip.name}</h2>
-      <p>{props.selectedShip.storyText}</p>
-      {currentView}
+      <div className="ship">
+        <h2>You've <em>arr</em>ived aboard the {props.selectedShip.name}</h2>
+        <p>{props.selectedShip.storyText}</p>
+        {currentView}
+      </div>
       <div>
         {resultText}
         <br /><br />

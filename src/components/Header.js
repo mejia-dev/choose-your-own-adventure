@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types'
+import './Header.css'
 
 const Header = (props) => {
     return(
         <>
-        <h1>
-            Treasures of the Tides
+        <div className="spacer"></div>
+        <h1 className="header">
+            🏴‍☠️Treasures of the Tides🦜
         </h1>
-        <button onClick={()=> props.signOutFunc()}>Sign out</button>
+        <div>
+            <button onClick={()=> props.signOutFunc()}>Sign out</button>
+        </div>
         </>
     )
 }

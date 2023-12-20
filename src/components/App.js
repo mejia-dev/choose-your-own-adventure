@@ -6,6 +6,7 @@ import Header from "./Header"
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import UIHolder from "./UIHolder";
 import { signOut } from "firebase/auth";
+import { SavePlayerData } from "./LoadSave";
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
   const [pageView, setPageView] = useState(0)
 
   function doSignOut() {
+    // SavePlayerData();
     signOut(auth)
       .then(function () {
         setSignOutSuccess('You have successfully signed out!');

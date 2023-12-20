@@ -1,7 +1,11 @@
 const playerData = {
     name: "",
     location: "",
-    inventory: []
+    inventory: [],
+    shipsVisited: []
 }
 
 export default playerData;
+
+
+

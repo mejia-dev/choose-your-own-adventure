@@ -36,7 +36,6 @@ export default function Ship(props) {
         </>
       )
     });
-    console.log(playerData.inventory)
   }
 
   function onChoiceSelection(choiceNumber) {

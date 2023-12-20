@@ -24,14 +24,14 @@ export const dungeonData = [
 
 export const choiceData = [
   {
-    text: "Barnacle-Led Voyage",
+    name: "Barnacle-Led Voyage",
     buttonText: "Take the plunge!",
     resultText: "By the ghostly glow of the moon and the mysterious murmurings of the sea, ye decide to take a leap of piratey faith and allow the barnacles to chart the course. The rebellious crustaceans, like a watery compass gone rogue, guide the ship through uncharted waters and mystical currents. As the crew watches in awe, the barnacles seem to form patterns on the hull, as if speakin' the ancient language of the ocean. The ship follows their lead, sailin' a path unknown to even the most seasoned mariners. It's a mesmerizin' dance between ship and barnacle, as if Neptune himself had granted the barnacles dominion over the waves.",
     loot: "04L",
     id: "01C"
   },
   {
-    text: "Barnacle Booty Bargain",
+    name: "Barnacle Booty Bargain",
     buttonText: "Barrrrrgain!",
     resultText: "The Bumbling Barnacle's crew, ever the resourceful bunch, has developed a quirky system to share their plunder with the mischievous barnacles in order to foster cooperation.",
     loot: "05L",

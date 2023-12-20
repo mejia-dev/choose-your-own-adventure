@@ -14,6 +14,7 @@ export default function Ship(props) {
   const [resultTextStyle, setResultTextStyle] = useState(styleHidden);
   const [resultText, setResultText] = useState(null);
   const [lootedItemDisplay, setLootedItemDisplay] = useState(null);
+  const [exitShipDisplay, setExitShipDisplay] = useState(null);
 
   let currentView;
 
@@ -30,6 +31,11 @@ export default function Ship(props) {
         <h2>Test</h2>
       </>
     )
+  }
+
+  function exitShip() {
+    playerData.inventory.push(props.selectedShip);
+    props.changeAboardStatus(false);
   }
 
   async function getLootedItem(lootID) {
@@ -49,19 +55,22 @@ export default function Ship(props) {
     console.log(playerData.inventory)
   }
 
+  
 
   function result1() {
     setResultText(props.selectedChoices[0].resultText)
     setButton2Style(styleHidden);
     setResultTextStyle(null);
     getLootedItem(props.selectedChoices[0].loot);
+    setExitShipDisplay(<button onClick={exitShip}>Exit Ship</button>);
   }
 
   function result2() {
     setResultText(props.selectedChoices[1].resultText)
     setButton1Style(styleHidden);
     setResultTextStyle(null);
-    getLootedItem(props.selectedChoices[1].loot)
+    getLootedItem(props.selectedChoices[1].loot);
+    setExitShipDisplay(<button onClick={exitShip}>Exit Ship</button>);
   }
 
 
@@ -70,12 +79,11 @@ export default function Ship(props) {
       <h2>You've <b>arr</b>ived aboard the {props.selectedShip.name}</h2>
       <p>{props.selectedShip.storyText}</p>
       {currentView}
-      {/* <div style={button1Style}><button onClick={() => result1()}>{props.selectedChoices[0].buttonText}</button></div>
-            <div style={button2Style}><button onClick={() => result2()}>{props.selectedChoices[1].buttonText}</button></div> */}
       <div style={resultTextStyle}>
         {resultText}
         <br /><br />
         {lootedItemDisplay}
+        {exitShipDisplay}
       </div>
     </>
   )
@@ -84,5 +92,8 @@ export default function Ship(props) {
 Ship.propTypes = {
   selectedShip: PropTypes.object,
   selectedChoices: PropTypes.array,
-  // commitChoice: PropTypes.func
+  changeAboardStatus: PropTypes.func
 }
+
+
+

@@ -16,6 +16,7 @@ export default function UIHolder() {
   const [loading, setLoading] = useState(true);
   const [gameReady, setGameReady] = useState(false);
   const [choiceMade, setChoiceMade] = useState(0);
+  const [currentlyAboard, setCurrentlyAboard] = useState(false);
 
   useEffect(() => {
     async function getDungeonData() {
@@ -42,6 +43,7 @@ export default function UIHolder() {
   function introSelectDungeon(dungeonID) {
     playerData.location = dungeonID;
     setChoiceMade(choiceMade + 1)
+    setCurrentlyAboard(true);
   }
 
   function changeName(playerName) {
@@ -56,7 +58,7 @@ export default function UIHolder() {
   if (playerData.name == "") {
     currentLevelRendered = (<>
       <PlayerInput
-        commitName={changeName}/>
+        commitName={changeName} />
     </>
     )
   } else if (playerData.location == "" && !loading && auth.currentUser != null && playerData.name != null) {
@@ -64,10 +66,10 @@ export default function UIHolder() {
       <React.Fragment>
         <h2>Ready yer sails for a plunder of secrets, mateys!</h2>
         <p>As you stand upon the weathered deck of your trusted vessel, the salty breeze tousles your hair, carryin' whispers of distant shores and treasures yet unfound. Ye're not just any sailor; ye're <b>Captain {playerData.name}</b>, a bold soul navigatin' the boundless open sea.
-        <br /><br />
-        The horizon stretches wide, adorned with a fleet of ships—each a chapter in yer tale. The <b>'Bumbling Barnacle'</b> beckons with its peculiar companionship, the <b>'Groggy Galleon'</b> hints at rowdy revelry, while the <b>'Jolly Jellyfish'</b> calls to ye with its enchantin' festivities. Yer path weaves through these storied vessels, and every decision ye make charts a course to wealth, companionship, or daring escapades across the high seas.
-        <br /><br />
-        Amidst whispers carried by the winds, tales of grandeur and fortune beckon. Here, each choice molds the voyage. Now, which ship shall be your first port of call?</p>
+          <br /><br />
+          The horizon stretches wide, adorned with a fleet of ships—each a chapter in yer tale. The <b>'Bumbling Barnacle'</b> beckons with its peculiar companionship, the <b>'Groggy Galleon'</b> hints at rowdy revelry, while the <b>'Jolly Jellyfish'</b> calls to ye with its enchantin' festivities. Yer path weaves through these storied vessels, and every decision ye make charts a course to wealth, companionship, or daring escapades across the high seas.
+          <br /><br />
+          Amidst whispers carried by the winds, tales of grandeur and fortune beckon. Here, each choice molds the voyage. Now, which ship shall be your first port of call?</p>
         {/*   */}
         <hr />
         <IntroShipRendering
@@ -76,24 +78,28 @@ export default function UIHolder() {
         />
       </React.Fragment>
     )
-  } else if (playerData.location != "") {
-    
+  } else if (playerData.location != "" && currentlyAboard === true) {
+
     const selectedDungeon = dungeonList.find((dungeon) => dungeon.id === playerData.location);
-    let choiceOptions = []; 
+    let choiceOptions = [];
     choicesList.forEach((choice) => {
       if (selectedDungeon.choiceArray.includes(choice.id)) {
         choiceOptions.push(choice)
       }
     })
-    
+
     currentLevelRendered = (
       <>
-        <Ship 
+        <Ship
           selectedShip={selectedDungeon}
           selectedChoices={choiceOptions}
-          // commitChoice={makeChoice}
+          changeAboardStatus={setCurrentlyAboard}
         />
       </>
+    )
+  } else if (playerData.location != "" && currentlyAboard === false) {
+    currentLevelRendered = (
+      <h2>Pick New Ship</h2>
     )
   } else {
     currentLevelRendered = (
@@ -142,6 +148,7 @@ export default function UIHolder() {
     return (
       <React.Fragment>
         {currentLevelRendered}
+        {playerData.inventory}
       </React.Fragment>
     )
   }

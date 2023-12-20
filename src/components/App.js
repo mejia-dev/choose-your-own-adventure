@@ -3,6 +3,7 @@ import './App.css';
 import FirestoreControl from "./FirestoreControl"
 import { db, auth } from "../firebase";
 import SignIn from './SignIn';
+import Header from "./Header"
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import UIHolder from "./UIHolder";
 import { signOut } from "firebase/auth";
@@ -30,8 +31,6 @@ function App() {
         <div>
           <Link to="/">Home</Link><br />
           <Link to="/sign-in">Sign In</Link>
-          {/* <button onClick={doSignOut}>Sign out</button>
-          {signOutSuccess} */}
         </div>
 
         <Routes>
@@ -49,8 +48,9 @@ function App() {
 
   return (
     <React.Fragment>
-      <button onClick={doSignOut}>Sign out</button>
-          {signOutSuccess}
+      <Header 
+        signOutFunc={doSignOut}/>
+      {signOutSuccess}
       {currentView}
     </React.Fragment>
   )

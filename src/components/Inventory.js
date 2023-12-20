@@ -4,7 +4,7 @@ const Inventory = () => {
 
     const lootItems = playerData.inventory.map((item) => {
         return (
-            <li>{item}</li>
+            <li key={item}>{item}</li>
         )
     })
     return(

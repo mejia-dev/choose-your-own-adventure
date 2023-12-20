@@ -25,12 +25,6 @@ export default function Ship(props) {
         <div style={button2Style}><button onClick={() => result2()}>{props.selectedChoices[1].buttonText}</button></div>
       </>
     )
-  } else {
-    currentView = (
-      <>
-        <h2>Test</h2>
-      </>
-    )
   }
 
   function exitShip() {
@@ -43,7 +37,7 @@ export default function Ship(props) {
     const querySnapshot = await getDocs(q);
     setLootedItemDisplay(null)
     querySnapshot.forEach((doc) => {
-      playerData.inventory.push(doc.data());
+      playerData.inventory.push(doc.data().type);
       setLootedItemDisplay(
         <>
           <h4>{doc.data().type}</h4>
@@ -55,10 +49,12 @@ export default function Ship(props) {
     console.log(playerData.inventory)
   }
 
-  
-
   function result1() {
-    setResultText(props.selectedChoices[0].resultText)
+    setResultText(
+      <>
+        <h3>{props.selectedChoices[0].name}</h3>
+        <p>{props.selectedChoices[0].resultText}</p>
+      </>)
     setButton2Style(styleHidden);
     setResultTextStyle(null);
     getLootedItem(props.selectedChoices[0].loot);
@@ -66,7 +62,11 @@ export default function Ship(props) {
   }
 
   function result2() {
-    setResultText(props.selectedChoices[1].resultText)
+    setResultText(
+      <>
+        <h3>{props.selectedChoices[1].name}</h3>
+        <p>{props.selectedChoices[1].resultText}</p>
+      </>)
     setButton1Style(styleHidden);
     setResultTextStyle(null);
     getLootedItem(props.selectedChoices[1].loot);

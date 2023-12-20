@@ -98,8 +98,20 @@ export default function UIHolder() {
       </>
     )
   } else if (playerData.location != "" && currentlyAboard === false) {
+    let arrayOfIDs = [];
+    playerData.shipsVisited.forEach((ship) => {
+      arrayOfIDs.push(ship.id);
+    })
+    const availableDungeons = dungeonList.filter((dungeon) => !arrayOfIDs.includes(dungeon.id));
+    
     currentLevelRendered = (
+      <>
       <h2>Pick New Ship</h2>
+      <IntroShipRendering
+          fullDungeonList={availableDungeons}
+          selectionFunction={introSelectDungeon}
+        />
+      </>
     )
   } else {
     currentLevelRendered = (
@@ -148,7 +160,7 @@ export default function UIHolder() {
     return (
       <React.Fragment>
         {currentLevelRendered}
-        {playerData.inventory}
+        {/* {playerData.inventory} */}
       </React.Fragment>
     )
   }

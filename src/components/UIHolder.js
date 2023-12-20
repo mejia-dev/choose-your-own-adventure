@@ -7,7 +7,8 @@ import Inventory from "./Inventory.js";
 import { collection, getDocs, query } from "firebase/firestore";
 import IntroShipRendering from "./IntroShipRendering.js";
 import { Link } from "react-router-dom";
-import { SavePlayerData, checkModdedPlayerData } from "./LoadSave.js";
+import { SavePlayerData } from "./LoadSave.js";
+import EndGame from "./EndGame.js";
 
 export default function UIHolder() {
 
@@ -53,9 +54,9 @@ export default function UIHolder() {
     setGameReady(true)
   }
 
-  function makeChoice() {
-    setChoiceMade(choiceMade + 1)
-  }
+  // function makeChoice() {
+  //   setChoiceMade(choiceMade + 1)
+  // }
 
   if (playerData.name == "") {
     currentLevelRendered = (<>
@@ -112,6 +113,10 @@ export default function UIHolder() {
           selectionFunction={introSelectDungeon}
         />
       </>
+    )
+  } else if (playerData.inventory.length > 2) {
+    currentLevelRendered = (
+      <EndGame />
     )
   } else {
     currentLevelRendered = (

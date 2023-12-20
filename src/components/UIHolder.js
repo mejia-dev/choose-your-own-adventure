@@ -98,11 +98,7 @@ export default function UIHolder() {
       </>
     )
   } else if (playerData.location != "" && currentlyAboard === false) {
-    let arrayOfIDs = [];
-    playerData.shipsVisited.forEach((ship) => {
-      arrayOfIDs.push(ship.id);
-    })
-    const availableDungeons = dungeonList.filter((dungeon) => !arrayOfIDs.includes(dungeon.id));
+    const availableDungeons = dungeonList.filter((dungeon) => !playerData.shipsVisited.includes(dungeon.id));
     
     currentLevelRendered = (
       <>
@@ -120,34 +116,6 @@ export default function UIHolder() {
       </React.Fragment>
     )
   }
-  //else {
-
-  // currentLevelData = Object.values(dungeonList).filter((dungeon) => dungeon.id === playerData.location)[0];
-  // let currentLevelChoiceAData;
-  // // = choicesList.filter((choice) => choice.id === currentLevelData.choiceArray[0]);
-  // let currentLevelChoiceBData;
-  // // = choicesList.filter((choice) => choice.id === currentLevelData.choiceArray[1]);
-
-  // currentLevelRendered = (
-  //   <React.Fragment>
-  //     <h2>Current Ship {currentLevelData.name}</h2>
-  //     <p>{currentLevelData.storyText}</p>
-  //     <div id="choiceA">
-  //       <h3>{currentLevelChoiceAData.text}</h3>
-  //       <button onClick="showChoiceAResult">{currentLevelChoiceAData.buttonText}</button>
-  //       <p className="hidden">{currentLevelChoiceAData.resultText}</p>
-  //       <button onClick="nextShip">Proceed</button>
-  //     </div>
-  //     <div id="choiceB">
-  //       <h3>{currentLevelChoiceBData.text}</h3>
-  //       <button onClick="showChoiceBResult">{currentLevelChoiceBData.buttonText}</button>
-  //       <p className="hidden">{currentLevelChoiceBData.resultText}</p>
-  //       <button onClick="nextShip">Proceed</button>
-  //     </div>
-  //   </React.Fragment>
-  // )
-  // }
-  // }
 
   if (auth.currentUser == null) {
     return (

@@ -42,8 +42,8 @@ export default function Ship(props) {
   function onChoiceSelection(choiceNumber) {
     setResultText(
       <>
-        <h3>{props.selectedChoices[1].name}</h3>
-        <p>{props.selectedChoices[1].resultText}</p>
+        <h3>{props.selectedChoices[choiceNumber].name}</h3>
+        <p>{props.selectedChoices[choiceNumber].resultText}</p>
       </>
     );
     getLootedItem(props.selectedChoices[choiceNumber].loot);

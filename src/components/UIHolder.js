@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { db, auth } from "../firebase.js";
 import PlayerInput from './PlayerInput';
 import playerData from './PlayerData'
+import Ship from "./Ship.js";
 import { collection, getDocs, query } from "firebase/firestore";
 import IntroShipRendering from "./IntroShipRendering.js";
 import { Link } from "react-router-dom"
@@ -14,6 +15,7 @@ export default function UIHolder() {
   const [choicesList, setChoicesList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [gameReady, setGameReady] = useState(false);
+  const [choiceMade, setChoiceMade] = useState(0);
 
   useEffect(() => {
     async function getDungeonData() {
@@ -46,6 +48,7 @@ export default function UIHolder() {
 
   function introSelectDungeon(dungeonID) {
     playerData.location = dungeonID;
+    setChoiceMade(choiceMade + 1)
   }
 
   function changeName(playerName) {
@@ -54,6 +57,9 @@ export default function UIHolder() {
     setGameReady(true)
   }
 
+  function makeChoice() {
+    setChoiceMade(choiceMade + 1)
+  }
 
   if (playerData.name == "") {
     currentLevelRendered = (<>
@@ -77,6 +83,25 @@ export default function UIHolder() {
           selectionFunction={introSelectDungeon}
         />
       </React.Fragment>
+    )
+  } else if (playerData.location == "01D") {
+    
+    const selectedDungeon = dungeonList.find((dungeon) => dungeon.id === "01D");
+    let choiceOptions = []; 
+    choicesList.forEach((choice) => {
+      if (selectedDungeon.choiceArray.includes(choice.id)) {
+        choiceOptions.push(choice)
+      }
+    })
+    
+    currentLevelRendered = (
+      <>
+        <Ship 
+          selectedShip={selectedDungeon}
+          selectedChoices={choiceOptions}
+          commitChoice={makeChoice}
+        />
+      </>
     )
   } else {
     currentLevelRendered = (

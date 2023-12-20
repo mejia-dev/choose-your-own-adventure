@@ -7,6 +7,7 @@ import Inventory from "./Inventory.js";
 import { collection, getDocs, query } from "firebase/firestore";
 import IntroShipRendering from "./IntroShipRendering.js";
 import { Link } from "react-router-dom";
+import { SavePlayerData, checkModdedPlayerData } from "./LoadSave.js";
 
 export default function UIHolder() {
 
@@ -100,10 +101,11 @@ export default function UIHolder() {
     )
   } else if (playerData.location != "" && currentlyAboard === false) {
     const availableDungeons = dungeonList.filter((dungeon) => !playerData.shipsVisited.includes(dungeon.id));
-    
+    SavePlayerData();
+    // SavePlayerData("testData");
     currentLevelRendered = (
       <>
-      <h2>Pick New Ship</h2>
+      <h2>Choose A New Vessel</h2>
       <p>Ahoy, me hearty <b>Captain {playerData.name}</b>! Set yer sights on a new vessel, and pick another ship to plunder from the list below!</p>
       <IntroShipRendering
           fullDungeonList={availableDungeons}

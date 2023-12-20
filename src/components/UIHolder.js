@@ -104,6 +104,7 @@ export default function UIHolder() {
     currentLevelRendered = (
       <>
       <h2>Pick New Ship</h2>
+      <p>Ahoy, me hearty <b>Captain {playerData.name}</b>! Set yer sights on a new vessel, and pick another ship to plunder from the list below!</p>
       <IntroShipRendering
           fullDungeonList={availableDungeons}
           selectionFunction={introSelectDungeon}
@@ -113,7 +114,7 @@ export default function UIHolder() {
   } else {
     currentLevelRendered = (
       <React.Fragment>
-        <h2>Not signed in!</h2>
+        <h3>Arr, how be ye standin' on this deck? There be naught but emptiness here!</h3>
       </React.Fragment>
     )
   }
@@ -121,7 +122,8 @@ export default function UIHolder() {
   if (auth.currentUser == null) {
     return (
       <React.Fragment>
-        <h1>Please Sign In</h1>
+        <h1>Avast ye!</h1>
+        <p>Ye haven't hoisted yer colors yet! Sign in, or prepare to walk the plank, ye scallywag!</p>
         <Link to="/sign-in">Sign In</Link>
       </React.Fragment>
     )

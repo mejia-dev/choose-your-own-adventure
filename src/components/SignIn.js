@@ -19,6 +19,7 @@ function SignIn(props) {
             .then((userCredential) => {
                 setSignUpSuccess(`You've successfully signed up, ${userCredential.user.email}!`);
                 playerData.name = "";
+                playerData.crew = "";
                 playerData.location = "";
                 playerData.inventory = [];
                 playerData.shipsVisited = [];

@@ -1,5 +1,6 @@
 const playerData = {
     name: "",
+    crew: "",
     location: "",
     inventory: [],
     shipsVisited: []

@@ -4,8 +4,9 @@ import playerData from "./PlayerData";
 
 export async function LoadPlayerData() {
   const currentPlayerData = await getDoc(doc(db, "userSaves", auth.currentUser.email));
-  const { name, location, inventory, shipsVisited} = currentPlayerData.data();
+  const { name, crew, location, inventory, shipsVisited} = currentPlayerData.data();
   playerData.name  = name
+  playerData.crew = crew
   playerData.location = location;
   playerData.inventory = inventory;
   playerData.shipsVisited = shipsVisited;

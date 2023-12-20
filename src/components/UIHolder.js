@@ -5,7 +5,7 @@ import playerData from './PlayerData'
 import Ship from "./Ship.js";
 import { collection, getDocs, query } from "firebase/firestore";
 import IntroShipRendering from "./IntroShipRendering.js";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 export default function UIHolder() {
 
@@ -29,16 +29,9 @@ export default function UIHolder() {
     async function getChoicesData() {
       const q = query(collection(db, "choices"));
       const querySnapshot = await getDocs(q);
-      const choicesss = [];
+      setChoicesList([])
       querySnapshot.forEach((doc) => {
-        choicesss.push({
-          buttonText: doc.data().buttonText,
-          id: doc.data().id,
-          resultText: doc.data().resultText,
-          text: doc.data().text
-        })
-
-        setChoicesList(choicesss)
+        setChoicesList((prevList) => [...prevList, doc.data()])
       });
     }
     getDungeonData();
@@ -98,7 +91,7 @@ export default function UIHolder() {
         <Ship 
           selectedShip={selectedDungeon}
           selectedChoices={choiceOptions}
-          commitChoice={makeChoice}
+          // commitChoice={makeChoice}
         />
       </>
     )
@@ -143,7 +136,6 @@ export default function UIHolder() {
       <React.Fragment>
         <h1>Please Sign In</h1>
         <Link to="/sign-in">Sign In</Link>
-
       </React.Fragment>
     )
   } else if (auth.currentUser != null) {

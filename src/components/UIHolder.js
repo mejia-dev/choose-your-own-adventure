@@ -100,7 +100,7 @@ export default function UIHolder() {
         />
       </>
     )
-  } else if (playerData.location != "" && currentlyAboard === false) {
+  } else if (playerData.location != "" && currentlyAboard === false && playerData.inventory.length < 3) {
     const availableDungeons = dungeonList.filter((dungeon) => !playerData.shipsVisited.includes(dungeon.id));
     SavePlayerData();
     // SavePlayerData("testData");

@@ -34,7 +34,7 @@ export default function Ship(props) {
   }
 
   function exitShip() {
-    playerData.shipsVisited.push(props.selectedShip);
+    playerData.shipsVisited.push(props.selectedShip.id);
     props.changeAboardStatus(false);
   }
 

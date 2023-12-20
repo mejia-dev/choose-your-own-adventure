@@ -53,7 +53,6 @@ export default function UIHolder() {
 
   function changeName(playerName) {
     playerData.name = playerName;
-    console.log(playerData.name)
     setGameReady(true)
   }
 

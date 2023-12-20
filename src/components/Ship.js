@@ -5,13 +5,6 @@ import { db } from './../firebase.js';
 import playerData from "./PlayerData.js";
 
 export default function Ship(props) {
-  const styleHidden = {
-    display: "hidden"
-  }
-
-  const [button1Style, setButton1Style] = useState({});
-  const [button2Style, setButton2Style] = useState({});
-  const [resultTextStyle, setResultTextStyle] = useState(styleHidden);
   const [resultText, setResultText] = useState(null);
   const [lootedItemDisplay, setLootedItemDisplay] = useState(null);
   const [exitShipDisplay, setExitShipDisplay] = useState(null);
@@ -21,15 +14,12 @@ export default function Ship(props) {
   if (!resultText) {
     currentView = (
       <>
-        <div style={button1Style}><button onClick={() => result1()}>{props.selectedChoices[0].buttonText}</button></div>
-        <div style={button2Style}><button onClick={() => result2()}>{props.selectedChoices[1].buttonText}</button></div>
+        <button onClick={() => onChoiceSelection(0)}>{props.selectedChoices[0].buttonText}</button>
+        <button onClick={() => onChoiceSelection(1)}>{props.selectedChoices[1].buttonText}</button>
       </>
     )
-  }
-
-  function exitShip() {
-    playerData.shipsVisited.push(props.selectedShip.id);
-    props.changeAboardStatus(false);
+  } else {
+    currentView = (null)
   }
 
   async function getLootedItem(lootID) {
@@ -49,37 +39,28 @@ export default function Ship(props) {
     console.log(playerData.inventory)
   }
 
-  function result1() {
-    setResultText(
-      <>
-        <h3>{props.selectedChoices[0].name}</h3>
-        <p>{props.selectedChoices[0].resultText}</p>
-      </>)
-    setButton2Style(styleHidden);
-    setResultTextStyle(null);
-    getLootedItem(props.selectedChoices[0].loot);
-    setExitShipDisplay(<button onClick={exitShip}>Exit Ship</button>);
-  }
-
-  function result2() {
+  function onChoiceSelection(choiceNumber) {
     setResultText(
       <>
         <h3>{props.selectedChoices[1].name}</h3>
         <p>{props.selectedChoices[1].resultText}</p>
-      </>)
-    setButton1Style(styleHidden);
-    setResultTextStyle(null);
-    getLootedItem(props.selectedChoices[1].loot);
+      </>
+    );
+    getLootedItem(props.selectedChoices[choiceNumber].loot);
     setExitShipDisplay(<button onClick={exitShip}>Exit Ship</button>);
   }
 
+  function exitShip() {
+    playerData.shipsVisited.push(props.selectedShip.id);
+    props.changeAboardStatus(false);
+  }
 
   return (
     <>
-      <h2>You've <b>arr</b>ived aboard the {props.selectedShip.name}</h2>
+      <h2>You've <em>arr</em>ived aboard the {props.selectedShip.name}</h2>
       <p>{props.selectedShip.storyText}</p>
       {currentView}
-      <div style={resultTextStyle}>
+      <div>
         {resultText}
         <br /><br />
         {lootedItemDisplay}

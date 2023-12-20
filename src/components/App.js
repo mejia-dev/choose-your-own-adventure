@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import './App.css';
-import FirestoreControl from "./FirestoreControl"
-import { db, auth } from "../firebase";
+import { auth } from "../firebase";
 import SignIn from './SignIn';
 import Header from "./Header"
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";

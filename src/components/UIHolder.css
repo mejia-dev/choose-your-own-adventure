@@ -1,0 +1,18 @@
+.intro-container {
+    text-align: center;
+    margin: 5%;
+}
+
+.ship-select {
+    text-align: center;
+    margin: 5%;
+}
+
+.inventory {
+    margin: 5%;
+    width: 20%;
+}
+
+.inventory h3 {
+    text-align: center;
+}

@@ -9,6 +9,7 @@ const Inventory = () => {
     })
     return(
         <>
+        <h3>Inventory</h3>
         <ul>
             {lootItems}
         </ul>

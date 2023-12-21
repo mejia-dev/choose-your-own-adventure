@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { db, auth } from "../firebase.js";
 import PlayerInput from './PlayerInput';
-import playerData from './PlayerData'
+// import playerData from './PlayerData'
 import Ship from "./Ship.js";
 import Inventory from "./Inventory.js";
 import { collection, getDocs, query, getDoc, setDoc, doc, where } from "firebase/firestore";
 import IntroShipRendering from "./IntroShipRendering.js";
 import { Link } from "react-router-dom";
-import { SavePlayerData } from "./LoadSave.js";
+// import { SavePlayerData } from "./LoadSave.js";
 import EndGame from "./EndGame.js";
 import './UIHolder.css';
 
@@ -18,8 +18,9 @@ export default function UIHolder() {
   const [dungeonList, setDungeonList] = useState([]);
   const [choicesList, setChoicesList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [gameReady, setGameReady] = useState(false);
-  const [choiceMade, setChoiceMade] = useState(0);
+  // const [gameReady, setGameReady] = useState(false);
+  // const [, forceUpdate] = useReducer(x => x + 1, 0);
+  // const [choiceMade, setChoiceMade] = useState(0);
   const [currentlyAboard, setCurrentlyAboard] = useState(false);
   const [cloudPlayerData, setCloudPlayerData] = useState({
     name:"",
@@ -29,6 +30,7 @@ export default function UIHolder() {
     shipsVisited:[]
   });
 
+  // useEffect to get list of dungeons and choices from cloud, and conditionally get cloud player data if user is currently signed in.
   useEffect(() => {
     async function getDungeonData() {
       const q = query(collection(db, "dungeon"));
@@ -47,69 +49,112 @@ export default function UIHolder() {
       });
     }
     if (auth.currentUser) {
-      async function getCloudPlayerData() {
-        const currentPlayerData = await getDoc(doc(db, "userSaves", auth.currentUser.email));
-        // setChoicesList([])
-        // currentPlayerData.forEach((doc) => {
-        //   console.log(doc.data())
-        // });
-        setCloudPlayerData(currentPlayerData.data())
-      }
       getCloudPlayerData();
     }
-    
     getDungeonData();
     getChoicesData();
-    
     setLoading(false);
   }, [])
 
+
+  // Non-async functions for updating player data and screen
   function introSelectDungeon(dungeonID) {
-    playerData.location = dungeonID;
     updateCloudPlayerLocation(dungeonID);
-    setChoiceMade(choiceMade + 1)
     setCurrentlyAboard(true);
   }
 
   function changeName(playerName) {
-    playerData.name = playerName;
     updateCloudPlayerName(playerName);
-    setGameReady(true)
   }
 
-  
 
-  async function updateCloudPlayerLocation(newLocation) {
+  // ASYNC Cloud Player Data Functions
+
+  async function getCloudPlayerData() {
+    const currentPlayerData = await getDoc(doc(db, "userSaves", auth.currentUser.email));
+    setCloudPlayerData(currentPlayerData.data())
+  }
+
+  async function updateCloudPlayerLocation(newLocationID) {
+    setLoading(true);
     const currentPlayerData = await getDoc(doc(db, "userSaves", auth.currentUser.email));
     const { name, crew, inventory, shipsVisited} = currentPlayerData.data();
     await setDoc(doc(db, "userSaves", auth.currentUser.email), {
       name: name,
       crew: crew,
-      location: newLocation,
+      location: newLocationID,
       inventory: inventory,
       shipsVisited: shipsVisited
     });
+    getCloudPlayerData();
+    setLoading(false);
   }
 
-  async function updateCloudPlayerName(newName) {
-    // const currentPlayerData = await getDoc(doc(db, "userSaves", auth.currentUser.email));
+  async function updateCloudPlayerName(newNameString) {
     const { crew, location, inventory, shipsVisited} = cloudPlayerData;
     await setDoc(doc(db, "userSaves", auth.currentUser.email), {
-      name: newName,
+      name: newNameString,
       crew: crew,
       location: location,
       inventory: inventory,
       shipsVisited: shipsVisited
     });
+    getCloudPlayerData();
   }
 
-  if (playerData.name == "") {
-    currentLevelRendered = (<>
-      <PlayerInput
-        commitName={changeName} />
-    </>
+  async function updateCloudPlayerInventory(newItemString) {
+    setLoading(true);
+    const { name, crew, location, inventory, shipsVisited} = cloudPlayerData;
+    await setDoc(doc(db, "userSaves", auth.currentUser.email), {
+      name: name,
+      crew: crew,
+      location: location,
+      inventory: [...inventory, newItemString],
+      shipsVisited: shipsVisited
+    });
+    getCloudPlayerData();
+    setLoading(false);
+  }
+
+  async function updateCloudPlayerVisitedShips(shipIDToAdd) {
+    setLoading(true);
+    const { shipsVisited } = cloudPlayerData;
+    const currentPlayerData = await getDoc(doc(db, "userSaves", auth.currentUser.email));
+    await setDoc(doc(db, "userSaves", auth.currentUser.email), {
+      ...currentPlayerData.data(),
+      shipsVisited: [...shipsVisited, shipIDToAdd]
+    });
+    getCloudPlayerData();
+    setLoading(false);
+  }
+
+  async function updateCloudPlayerCrew(crewNameString) {
+    const currentPlayerData = await getDoc(doc(db, "userSaves", auth.currentUser.email));
+    await setDoc(doc(db, "userSaves", auth.currentUser.email), {
+      ...currentPlayerData.data(),
+      crew: crewNameString
+    });
+    getCloudPlayerData();
+  }
+
+
+  // Rendering of currentLevelRendered:
+
+  if (auth.currentUser != null && cloudPlayerData.inventory.length > 2 && !loading) {
+    currentLevelRendered = (
+      <EndGame 
+        playerData={cloudPlayerData}
+      />
     )
-  } else if (playerData.location == "" && !loading && auth.currentUser != null && playerData.name != null) {
+  } else if (loading) { 
+    console.log("IF6 LOADING")
+    currentLevelRendered = (
+      <React.Fragment>
+        <h3 className="loading">LOADING!</h3>
+      </React.Fragment>
+    )
+  } else if (cloudPlayerData.location == "" && !loading && auth.currentUser != null && cloudPlayerData.name != null) {
+    console.log("IF2")
     currentLevelRendered = (
       <React.Fragment>
         <div className="intro-container">
@@ -128,7 +173,7 @@ export default function UIHolder() {
       </React.Fragment>
     )
   } else if (cloudPlayerData.location != "" && currentlyAboard === true) {
-
+    console.log("IF3")
     const selectedDungeon = dungeonList.find((dungeon) => dungeon.id === cloudPlayerData.location);
     let choiceOptions = [];
     choicesList.forEach((choice) => {
@@ -143,34 +188,49 @@ export default function UIHolder() {
           selectedShip={selectedDungeon}
           selectedChoices={choiceOptions}
           changeAboardStatus={setCurrentlyAboard}
+          doInventoryUpdate={updateCloudPlayerInventory}
+          doShipListUpdate={updateCloudPlayerVisitedShips}
         />
-      </>
-    )
-  } else if (cloudPlayerData.location != "" && currentlyAboard === false && playerData.inventory.length < 3) {
-    const availableDungeons = dungeonList.filter((dungeon) => !playerData.shipsVisited.includes(dungeon.id));
-    SavePlayerData();
-    // SavePlayerData("testData");
-    currentLevelRendered = (
-      <>
-      <div className="ship-select">
-      <h2>Choose A New Vessel</h2>
-      <p>Ahoy, me hearty <b>Captain {playerData.name}</b>! Set yer sights on a new vessel, and pick another ship to plunder from the list below!</p>
-      <IntroShipRendering
-          fullDungeonList={availableDungeons}
-          selectionFunction={introSelectDungeon}
-        />
+        <div className="inventory">
+          <Inventory 
+            inventoryData={cloudPlayerData.inventory}
+          />
         </div>
       </>
     )
-  } else if (playerData.inventory.length > 2) {
-    SavePlayerData();
+  } else if (cloudPlayerData.location != "" && currentlyAboard === false && cloudPlayerData.inventory.length < 3) {
+    console.log("IF4")
+    const availableDungeons = dungeonList.filter((dungeon) => !cloudPlayerData.shipsVisited.includes(dungeon.id));
     currentLevelRendered = (
-      <EndGame />
+      <>
+      <div className="ship-select">
+        <h2>Choose A New Vessel</h2>
+        <p><em>Ahoy, me hearty <b>Captain {cloudPlayerData.name}</b>! Set yer sights on a new vessel, and pick another ship to plunder from the list below!</em></p>
+        <IntroShipRendering
+          fullDungeonList={availableDungeons}
+          selectionFunction={introSelectDungeon} />
+      </div>
+        <div className="inventory">
+          <Inventory 
+            inventoryData={cloudPlayerData.inventory}
+          />
+        </div>
+      </>
+    )
+  } else if (cloudPlayerData.name == "" && !loading && auth.currentUser) {
+    currentLevelRendered = (<>
+      <PlayerInput
+        commitName={changeName} 
+        commitCrew={updateCloudPlayerCrew}
+        />
+    </>
     )
   } else {
+    console.log("ERROR! Hit ELSE")
     currentLevelRendered = (
       <React.Fragment>
-        <h3>Arr, how be ye standin' on this deck? There be naught but emptiness here!</h3>
+        <h3 className="no-info">Arr, how be ye standin' on this deck? There be naught but emptiness here!</h3>
+        <p>Error</p>
       </React.Fragment>
     )
   }
@@ -178,18 +238,17 @@ export default function UIHolder() {
   if (auth.currentUser == null) {
     return (
       <React.Fragment>
-        <h1>Avast ye!</h1>
-        <p>Ye haven't hoisted yer colors yet! Sign in, or prepare to walk the plank, ye scallywag!</p>
-        <Link to="/sign-in">Sign In</Link>
+        <div className="no-auth">
+          <h1>Avast ye!</h1>
+          <p>Ye haven't hoisted yer colors yet! Sign in, or prepare to walk the plank, ye scallywag!</p>
+          <Link to="/sign-in">Sign In</Link>
+        </div>
       </React.Fragment>
     )
   } else if (auth.currentUser != null) {
     return (
       <React.Fragment >
         {currentLevelRendered}
-        <div className="inventory">
-          <Inventory />
-        </div>
       </React.Fragment>
     )
   }

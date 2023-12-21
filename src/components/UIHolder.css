@@ -16,3 +16,13 @@
 .inventory h3 {
     text-align: center;
 }
+
+.no-info {
+    text-align: center;
+    margin: 5%;
+}
+
+.no-auth {
+    text-align: center;
+    margin: 5%;
+}

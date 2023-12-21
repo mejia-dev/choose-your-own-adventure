@@ -1,0 +1,7 @@
+.stylebox {
+  border: 2px solid lime;
+  padding: 10px;
+  margin-left: 15%;
+  margin-right: 15%;
+  background: rgba(0, 255, 0, 0.05);
+}

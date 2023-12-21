@@ -1,10 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import { auth } from './../firebase';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { db, auth } from './../firebase';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore"
 import PropTypes from "prop-types";
-import { LoadPlayerData, SavePlayerData } from './LoadSave';
-import playerData from './PlayerData';
 
 function SignIn(props) {
 
@@ -18,12 +17,17 @@ function SignIn(props) {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 setSignUpSuccess(`You've successfully signed up, ${userCredential.user.email}!`);
-                playerData.name = "";
-                playerData.crew = "";
-                playerData.location = "";
-                playerData.inventory = [];
-                playerData.shipsVisited = [];
-                SavePlayerData();
+
+                async function initialSetup() {
+                  await setDoc(doc(db, "userSaves", auth.currentUser.email), {
+                  name: "",
+                  crew: "",
+                  location: "",
+                  inventory: [],
+                  shipsVisited: []
+                });
+              }
+              initialSetup();  
             })
             .catch((error) => {
                 setSignUpSuccess(`There was an error signing up: ${error.message}`)
@@ -38,7 +42,7 @@ function SignIn(props) {
           .then((userCredential) => {
             props.signOutMessage(null)
             setSignInSuccess(`You've successfully signed in as ${userCredential.user.email}!`);
-            LoadPlayerData();
+            // LoadPlayerData();
             props.changePage(1);
           })
           .catch((error) => {

@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { query, collection, where, getDocs } from 'firebase/firestore';
 import { db } from './../firebase.js';
-import playerData from "./PlayerData.js";
 import './Ship.css'
 
 export default function Ship(props) {
   const [resultText, setResultText] = useState(null);
   const [lootedItemDisplay, setLootedItemDisplay] = useState(null);
   const [exitShipDisplay, setExitShipDisplay] = useState(null);
-
   let currentView;
 
   if (!resultText) {
@@ -28,11 +26,11 @@ export default function Ship(props) {
     const querySnapshot = await getDocs(q);
     setLootedItemDisplay(null)
     querySnapshot.forEach((doc) => {
-      playerData.inventory.push(doc.data().type);
+      props.doInventoryUpdate(doc.data().type);
       setLootedItemDisplay(
         <>
-          <h4>{doc.data().type}</h4>
-          <p>{doc.data().obtainText}</p>
+          {/* <h4 className="h4">{doc.data().type}</h4> */}
+          <h4 className="h4">{doc.data().obtainText}</h4>
           <p>{doc.data().itemDescription}</p>
         </>
       )
@@ -42,7 +40,7 @@ export default function Ship(props) {
   function onChoiceSelection(choiceNumber) {
     setResultText(
       <>
-        <h3>{props.selectedChoices[choiceNumber].name}</h3>
+        <h3 className="h4">You chose the {props.selectedChoices[choiceNumber].name}</h3>
         <p>{props.selectedChoices[choiceNumber].resultText}</p>
       </>
     );
@@ -51,7 +49,8 @@ export default function Ship(props) {
   }
 
   function exitShip() {
-    playerData.shipsVisited.push(props.selectedShip.id);
+    console.log("SHIP EXITED")
+    props.doShipListUpdate(props.selectedShip.id);
     props.changeAboardStatus(false);
   }
 
@@ -64,9 +63,11 @@ export default function Ship(props) {
       </div>
       <div>
         {resultText}
-        <br /><br />
+        {/* <br /><br /> */}
         {lootedItemDisplay}
+        <div className="h4">
         {exitShipDisplay}
+        </div>
       </div>
     </>
   )
@@ -75,7 +76,9 @@ export default function Ship(props) {
 Ship.propTypes = {
   selectedShip: PropTypes.object,
   selectedChoices: PropTypes.array,
-  changeAboardStatus: PropTypes.func
+  changeAboardStatus: PropTypes.func,
+  doInventoryUpdate: PropTypes.func,
+  doShipListUpdate: PropTypes.func
 }
 
 

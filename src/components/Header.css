@@ -1,9 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Righteous&family=Space+Mono&family=Trade+Winds&display=swap');
+
 .header-container {
     display: flex;
     flex-wrap: wrap;
+    /* background-image: url('../images/pirate-ship.jpeg');
+    background-position: center;
+    background-size: 100% auto; */
 }
 
 .header {
+    font-family: "Trade Winds";
     text-align: center;
     width: 70%;
     
@@ -23,3 +29,4 @@
     margin: auto;
     margin-top: 15%;
 }
+

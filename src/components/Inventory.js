@@ -1,20 +1,23 @@
-import playerData from './PlayerData'
+import PropTypes from "prop-types"
 
-const Inventory = () => {
-
-    const lootItems = playerData.inventory.map((item) => {
+const Inventory = (props) => {
+    const lootItems = props.inventoryData.map((item) => {
         return (
             <li key={item}>{item}</li>
         )
     })
-    return(
+    return (
         <>
-        <h3>Inventory</h3>
-        <ul>
-            {lootItems}
-        </ul>
+            <h3>Inventory</h3>
+            <ul>
+                {lootItems}
+            </ul>
         </>
     )
+}
+
+Inventory.propTypes = {
+    inventoryData: PropTypes.array
 }
 
 export default Inventory

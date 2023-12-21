@@ -6,7 +6,6 @@ import Header from "./Header"
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import UIHolder from "./UIHolder";
 import { signOut } from "firebase/auth";
-import { SavePlayerData } from "./LoadSave";
 
 function App() {
 

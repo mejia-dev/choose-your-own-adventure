@@ -4,12 +4,14 @@ import './Header.css'
 const Header = (props) => {
     return(
         <>
-        <div className="spacer"></div>
-        <h1 className="header">
-            🏴‍☠️Treasures of the Tides🦜
-        </h1>
-        <div>
-            <button onClick={()=> props.signOutFunc()}>Sign out</button>
+        <div className="header-container">
+            <div className="spacer"></div>
+            <h1 className="header">
+                🏴‍☠️Treasures of the Tides🦜
+            </h1>
+            <div className="button-div">
+                <button onClick={()=> props.signOutFunc()}>Sign out</button>
+            </div>
         </div>
         </>
     )

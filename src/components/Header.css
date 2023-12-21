@@ -1,8 +1,25 @@
+.header-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .header {
     text-align: center;
+    width: 70%;
     
 }
 
-button {
-    float: right;
+.spacer {
+    width: 15%;
+    
+}
+
+.button-div {
+    width: 15%;
+}
+
+.button-div button {
+    align-items: center;
+    margin: auto;
+    margin-top: 15%;
 }
